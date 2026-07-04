@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NonInteractive -File .claude/hooks/session-journal.ps1"
+          },
+          {
+            "type": "command",
+            "command": "pwsh -NonInteractive -File .claude/hooks/rgpd-scan.ps1"
+          }
+        ]
+      }
+    ]
+  }
+}
