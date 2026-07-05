@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dossier de spécifications — to-toxon-odysseos (v0.1)</title>
+<style>body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.5; color: #1a1a1a;
+       max-width: 900px; margin: 0 auto; padding: 2rem; }
+header.bandeau { border-bottom: 3px solid #2c5f2d; padding-bottom: 1rem; margin-bottom: 2rem; }
+header.bandeau h1 { margin: 0 0 .3rem; font-size: 1.7rem; }
+header.bandeau .meta { color: #555; font-size: .95rem; }
+h2 { border-bottom: 2px solid #2c5f2d; padding-bottom: .3rem; margin-top: 2.5rem; }
+h3 { margin-top: 1.8rem; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .93rem; }
+th, td { border: 1px solid #bbb; padding: .45rem .6rem; text-align: left; vertical-align: top; }
+th { background: #eaf2ea; }
+tr:nth-child(even) td { background: #f7f7f7; }
+blockquote { border-left: 4px solid #2c5f2d; margin: 1rem 0; padding: .3rem 1rem; background: #f4f8f4; }
+code { background: #f0f0f0; padding: .1rem .3rem; border-radius: 3px; font-size: .9em; }
+nav.toc { background: #f4f8f4; border: 1px solid #cfe0cf; border-radius: 6px; padding: 1rem 2rem; }
+nav.toc h2 { border: none; margin-top: 0; }
+a { color: #1d4ed8; }
+section.chapitre { margin-top: 1rem; }
+@media print {
+  body { max-width: none; padding: 0; font-size: 11pt; }
+  section.chapitre { page-break-before: always; }
+  nav.toc { page-break-before: avoid; }
+  a { color: inherit; text-decoration: none; }
+}</style>
+</head>
+<body>
+<header class="bandeau">
+<h1>Dossier de spécifications — to-toxon-odysseos</h1>
+<div class="meta">Application de gestion des concours de tir à l'arc conformes FFTA —
+<strong>v0.1</strong> · 2026-07-04 · document de relecture, annotations bienvenues (voir chapitre « Lisez-moi »)</div>
+</header>
+<nav class="toc"><h2>Sommaire</h2><ol>
+<li><a href="#ch-00-lisez-moi">Dossier de spécifications — to-toxon-odysseos</a></li>
+<li><a href="#ch-01-contexte-objectifs">1. Contexte et objectifs</a></li>
+<li><a href="#ch-02-perimetre-phasage">2. Périmètre et phasage</a></li>
+<li><a href="#ch-03-acteurs-parcours">3. Acteurs et parcours utilisateur</a></li>
+<li><a href="#ch-04-regles-metier">4. Règles métier FFTA</a></li>
+<li><a href="#ch-05-exigences-fonctionnelles">5. Exigences fonctionnelles</a></li>
+<li><a href="#ch-06-exigences-non-fonctionnelles">6. Exigences non fonctionnelles</a></li>
+<li><a href="#ch-07-donnees-rgpd">7. Données personnelles et RGPD</a></li>
+<li><a href="#ch-08-questions-ouvertes">8. Questions ouvertes soumises aux relecteurs</a></li>
+<li><a href="#ch-glossaire">9. Glossaire</a></li>
+
+</ol></nav>
+<section id="ch-00-lisez-moi" class="chapitre">
+<h2>Dossier de spécifications — to-toxon-odysseos</h2>
+<p><strong>Application de gestion des concours de tir à l'arc conformes FFTA</strong></p>
+<table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td>Version</td><td>v0.1</td></tr>
+<tr><td>Date</td><td>2026-07-04</td></tr>
+<tr><td>Statut</td><td>Brouillon — soumis à relecture</td></tr>
+<tr><td>Rédaction</td><td>Didier RICHARD (avec assistance IA)</td></tr>
+</tbody></table>
+<h3>Objet de ce dossier</h3>
+<p>Ce dossier décrit l'application envisagée : son contexte, son périmètre, ses utilisateurs, les règles du jeu fédérales qu'elle doit respecter, et les exigences qui en découlent. Il est soumis aux relecteurs pour <strong>approbation et amendements</strong> avant tout développement.</p>
+<h3>À qui s'adresse-t-il</h3>
+<ul>
+<li><strong>Dirigeants de club</strong> : valider le besoin, le périmètre et les priorités (chapitres 1, 2 et 8) ;</li>
+<li><strong>Utilisateurs de terrain</strong> (greffe, marqueurs, archers) : valider les parcours utilisateur (chapitre 3) et les exigences fonctionnelles (chapitre 5) ;</li>
+<li><strong>Arbitres et experts FFTA</strong> : valider la conformité réglementaire (chapitre 4 — chaque règle renvoie à l'article du règlement fédéral concerné).</li>
+</ul>
+<p>Aucune compétence informatique n'est nécessaire ; le <a href="#ch-glossaire">glossaire</a> définit les termes du tir à l'arc utilisés.</p>
+<h3>Comment amender ce dossier</h3>
+<ul>
+<li>Chaque élément porte un identifiant stable : <strong>OBJ-xx</strong> (objectif), <strong>P-xx</strong> (parcours), <strong>RM-xx</strong> (règle métier),</li>
+</ul>
+<p><strong>EF-xx</strong> (exigence fonctionnelle), <strong>ENF-xx</strong> (exigence non fonctionnelle), <strong>QO-xx</strong> (question ouverte).</p>
+<ul>
+<li>Annotez directement le document diffusé (papier ou PDF) en citant l'identifiant concerné,</li>
+</ul>
+<p>ou répondez aux questions du chapitre 8.</p>
+<ul>
+<li>Retournez vos annotations au rédacteur ; elles seront consolidées, arbitrées et intégrées dans</li>
+</ul>
+<p>la version suivante, avec trace dans le journal ci-dessous.</p>
+<p>Une remarque sans identifiant est recevable : indiquez simplement le chapitre et le passage visé.</p>
+<h3>Sommaire</h3>
+<ul>
+<li><a href="#ch-01-contexte-objectifs">Contexte et objectifs</a></li>
+<li><a href="#ch-02-perimetre-phasage">Périmètre et phasage</a></li>
+<li><a href="#ch-03-acteurs-parcours">Acteurs et parcours utilisateur</a></li>
+<li><a href="#ch-04-regles-metier">Règles métier FFTA</a></li>
+<li><a href="#ch-05-exigences-fonctionnelles">Exigences fonctionnelles</a></li>
+<li><a href="#ch-06-exigences-non-fonctionnelles">Exigences non fonctionnelles</a></li>
+<li><a href="#ch-07-donnees-rgpd">Données personnelles et RGPD</a></li>
+<li><a href="#ch-08-questions-ouvertes">Questions ouvertes soumises aux relecteurs</a></li>
+<li><a href="#ch-glossaire">Glossaire</a></li>
+</ul>
+<h3>Journal des versions et des amendements</h3>
+<table><thead><tr><th>Version</th><th>Date</th><th>Contenu</th></tr></thead><tbody>
+<tr><td>v0.1</td><td>2026-07-04</td><td>Version initiale, constituée à partir du règlement FFTA (édition juillet 2025) et du cadrage interne.</td></tr>
+</tbody></table>
+
+</section>
+<section id="ch-01-contexte-objectifs" class="chapitre">
+<h2>1. Contexte et objectifs</h2>
+<h3>1.1 Le besoin</h3>
+<p>Organiser un concours de tir à l'arc conforme aux règlements de la Fédération Française de Tir à l'Arc (FFTA) impose à un club une chaîne de tâches administratives et sportives précises : publication du mandat, gestion des inscriptions, tenue du greffe le jour de la compétition (contrôle des licences, attribution des cibles), suivi des feuilles de marque, calcul des classements par catégorie, édition des résultats et transmission à la fédération dès la fin de la compétition.</p>
+<p>Ces tâches sont aujourd'hui réalisées avec des outils hétérogènes (tableurs, papier, logiciel fédéral vieillissant), avec des risques d'erreur sur les points les plus sensibles : conformité de l'attribution des cibles, exactitude des classements (règles de départage), délais de transmission des résultats — le règlement prévoit des <strong>pénalités lourdes</strong> en cas de manquement (jusqu'à 2 ans de suppression d'organisation, art. B.1.4).</p>
+<h3>1.2 L'existant fédéral</h3>
+<ul>
+<li><strong>Résult'Arc</strong> : logiciel historique de la FFTA pour les inscriptions et les résultats (Windows,</li>
+</ul>
+<p>poste local). Il génère un fichier de résultats transmis via l'extranet fédéral. Le format technique de ce fichier n'est pas public.</p>
+<ul>
+<li><strong>IANSEO</strong> : logiciel international, en cours de déploiement par la FFTA (saison 2025-2026 : Tir à</li>
+</ul>
+<p>18m, TAE, Beursault) en remplacement progressif de Résult'Arc. Transmission également par fichier vers l'extranet, intégration au classement national sous 2 heures.</p>
+<p>L'application envisagée ne remplace pas le système fédéral : elle outille le club organisateur en amont et pendant la compétition, et produit en sortie les éléments attendus par la fédération (résultats conformes, fichier d'export si le format peut être obtenu — voir <a href="#ch-08-questions-ouvertes">QO-01</a>).</p>
+<h3>1.3 Objectifs</h3>
+<table><thead><tr><th>Id</th><th>Objectif</th><th>Bénéfice attendu</th></tr></thead><tbody>
+<tr><td>OBJ-01</td><td>Garantir la conformité FFTA des concours organisés (greffe, scores, classements, résultats)</td><td>Zéro pénalité fédérale, résultats incontestables</td></tr>
+<tr><td>OBJ-02</td><td>Réduire le temps de préparation et de tenue du greffe</td><td>Moins de bénévoles mobilisés, moins d'erreurs le jour J</td></tr>
+<tr><td>OBJ-03</td><td>Fiabiliser la saisie des scores et le calcul des classements (départages compris)</td><td>Publication rapide et juste des podiums</td></tr>
+<tr><td>OBJ-04</td><td>Faciliter la transmission des résultats à la FFTA dès la fin de la compétition</td><td>Respect du délai réglementaire (art. B.1.4)</td></tr>
+<tr><td>OBJ-05</td><td>Protéger les données personnelles des archers conformément au RGPD</td><td>Conformité légale du club organisateur</td></tr>
+</tbody></table>
+<h3>1.4 Ce que l'application n'est pas</h3>
+<ul>
+<li>Un système de gestion des licences (domaine exclusif de la FFTA) ;</li>
+<li>Un remplacement de Résult'Arc/IANSEO côté fédération ;</li>
+<li>Un outil de gestion administrative ou comptable du club.</li>
+</ul>
+
+</section>
+<section id="ch-02-perimetre-phasage" class="chapitre">
+<h2>2. Périmètre et phasage</h2>
+<h3>2.1 Vision cible</h3>
+<p>À terme, l'application couvre le cycle complet d'un concours FFTA, pour les disciplines organisées par les clubs :</p>
+<table><thead><tr><th>Domaine</th><th>Contenu</th></tr></thead><tbody>
+<tr><td>Référentiel</td><td>Archers (identité, licence, catégorie d'âge et d'arme calculées), clubs</td></tr>
+<tr><td>Préparation</td><td>Création du concours, mandat/invitation, départs, inscriptions</td></tr>
+<tr><td>Greffe</td><td>Contrôle des licences, pointage, attribution des cibles conforme au règlement</td></tr>
+<tr><td>Compétition</td><td>Feuilles de marque, saisie des scores par volée, validations et signatures</td></tr>
+<tr><td>Classements</td><td>Calcul par catégorie (sexe × âge × arme), départages réglementaires</td></tr>
+<tr><td>Résultats</td><td>Édition conforme, publication, transmission FFTA</td></tr>
+<tr><td>Disciplines</td><td>Tir à 18m, Tir à l'Arc Extérieur (TAE), puis autres disciplines selon priorités</td></tr>
+</tbody></table>
+<h3>2.2 Phasage proposé</h3>
+<p>Le phasage ci-dessous est une <strong>proposition soumise aux relecteurs</strong> (voir <a href="#ch-08-questions-ouvertes">QO-05</a>).</p>
+<h4>Phase 1 — Concours Tir à 18m, épreuve de qualification (MVP)</h4>
+<p>La discipline la plus organisée par les clubs, sur son format le plus courant (2×18 m, volées de 3 flèches, sans phases finales) :</p>
+<ul>
+<li>référentiel archers/clubs, calcul automatique des catégories ;</li>
+<li>création du concours, départs, inscriptions ;</li>
+<li>greffe : contrôle licences, attribution des cibles (règles RM-01 à RM-03) ;</li>
+<li>saisie des scores, totaux et nombre de 10/9 automatiques ;</li>
+<li>classements par catégorie avec départage réglementaire ;</li>
+<li>édition des résultats conforme à l'art. B.1.3 (impression/PDF), export générique (CSV) ;</li>
+<li>installeur (Windows, Linux) publié sur le dépôt GitHub du projet, permettant l'installation</li>
+</ul>
+<p>par les utilisateurs finaux sans compilation (ENF-13).</p>
+<h4>Phase 2 — Phases finales et TAE</h4>
+<ul>
+<li>duels et matchs (système de sets arc classique/nu, score cumulé arc à poulies), barrages ;</li>
+<li>Tir à l'Arc Extérieur (distances, blasons, volées de 6 flèches, épreuve 1440) ;</li>
+<li>gestion par équipes (qualification).</li>
+</ul>
+<h4>Phase 3 — Intégration fédérale et autres disciplines</h4>
+<ul>
+<li>export au format attendu par la FFTA (Résult'Arc/IANSEO — conditionné à l'obtention du cahier</li>
+</ul>
+<p>des charges fédéral, <a href="#ch-08-questions-ouvertes">QO-01</a>) ;</p>
+<ul>
+<li>disciplines de parcours (Campagne, Nature, 3D) et/ou Beursault, selon les priorités exprimées ;</li>
+<li>Para-tir à l'arc (prise en compte des catégories Open/Fédéral).</li>
+</ul>
+<h3>2.3 Hors périmètre (toutes phases)</h3>
+<ul>
+<li>Gestion des licences fédérales (émission, renouvellement) — source : FFTA ;</li>
+<li>Paiement en ligne des mises (à discuter, <a href="#ch-08-questions-ouvertes">QO-06</a>) ;</li>
+<li>Gestion administrative et comptable du club ;</li>
+<li>Chronométrage et signalétique de terrain (feux, sonorisation) ;</li>
+<li>Procédures disciplinaires et jury d'appel (le dossier de réclamation reste papier).</li>
+</ul>
+
+</section>
+<section id="ch-03-acteurs-parcours" class="chapitre">
+<h2>3. Acteurs et parcours utilisateur</h2>
+<h3>3.1 Acteurs</h3>
+<table><thead><tr><th>Acteur</th><th>Rôle vis-à-vis de l'application</th></tr></thead><tbody>
+<tr><td>Administrateur</td><td>Rôle technique : configure l'application (comptes utilisateurs, paramètres techniques), gère le transfert de la configuration entre postes du club — n'intervient pas sur l'organisation sportive d'un concours</td></tr>
+<tr><td>Organisateur</td><td>Membre du club organisateur ; crée le concours, publie le mandat, suit les inscriptions, édite et transmet les résultats</td></tr>
+<tr><td>Greffe</td><td>Bénévole(s) tenant le greffe le jour J : contrôle des licences, pointage, attribution des cibles, gestion des défections</td></tr>
+<tr><td>Marqueur</td><td>Personne désignée par cible qui enregistre les scores (souvent un compétiteur)</td></tr>
+<tr><td>Arbitre</td><td>Vérifie la conformité ; tranche la valeur des flèches ; valide les corrections de feuilles de marque</td></tr>
+<tr><td>Archer</td><td>Compétiteur ; s'inscrit (ou est inscrit), vérifie et signe sa feuille de marque, consulte les résultats</td></tr>
+<tr><td>Dirigeant de club</td><td>Consulte les concours et résultats du club ; responsable de traitement au sens RGPD</td></tr>
+</tbody></table>
+<p>Un même individu peut cumuler plusieurs rôles (un organisateur est souvent archer).</p>
+<h3>3.2 Hypothèse de poste partagé (Phase 1)</h3>
+<p>Hypothèse de travail retenue pour la Phase 1, à confirmer par les relecteurs (voir <a href="#ch-08-questions-ouvertes">QO-02</a> et <a href="#ch-08-questions-ouvertes">QO-03</a>) : <strong>un seul poste informatique</strong> (Windows ou Linux) au greffe assure l'ensemble des rôles applicatifs. Organisateur, greffe, marqueur(s) et arbitre s'y succèdent au cours de la compétition, chacun avec son propre compte utilisateur (EF-60) — le poste est donc <strong>partagé entre plusieurs personnes</strong>, et non réservé à un seul utilisateur. Cette hypothèse a des conséquences directes sur la sécurité des accès (voir ENF-12) et sur la saisie des scores (saisie centralisée plutôt que décentralisée sur les téléphones des marqueurs).</p>
+<h3>3.3 Parcours utilisateur</h3>
+<p>Chaque parcours est décrit du point de vue de l'acteur principal. Les exigences fonctionnelles du chapitre 5 s'y rattachent.</p>
+<h4>P-01 — Préparer un concours (organisateur)</h4>
+<p>Créer le concours (discipline, dates, lieu, nombre de cibles, départs et horaires, blasons proposés), renseigner les informations obligatoires du mandat (art. B.1.1 : heure d'ouverture du greffe, inspection du matériel, entraînement, début des tirs, forme du concours), désigner les arbitres, puis diffuser le mandat.</p>
+<h4>P-02 — Gérer les inscriptions (organisateur)</h4>
+<p>Enregistrer les inscriptions (archer, club, catégorie, départ souhaité, arme), contrôler la validité des données (licence, catégorie calculée automatiquement, surclassement éventuel), suivre le taux de remplissage par départ, gérer une liste d'attente.</p>
+<h4>P-03 — Tenir le greffe le jour J (greffe)</h4>
+<p>À l'ouverture : contrôler les licences, pointer les présents, encaisser les mises. Attribuer les cibles en respectant les règles fédérales (2 archers maximum d'un même club par cible, participation d'archers extérieurs obligatoire) ; réattribuer en cas de défection sans casser ces règles ; éditer le plan de cibles et les feuilles de marque.</p>
+<h4>P-04 — Saisir les scores (marqueur)</h4>
+<p>Pour chaque volée : saisir les valeurs des flèches par archer (l'application les ordonne en décroissant et calcule les totaux et le nombre de 10 et de 9), signaler un incident (flèche M, rebond, désaccord → appel arbitre). En fin de tir : vérification et signature de l'archer et du marqueur, verrouillage de la feuille.</p>
+<h4>P-05 — Superviser et corriger (arbitre)</h4>
+<p>Consulter l'avancement des scores en temps réel, enregistrer une correction validée (tracée, avec identification de l'arbitre), trancher les cas particuliers de valeur de flèche, constater une divergence entre feuille papier et saisie électronique (le papier fait foi).</p>
+<h4>P-06 — Classer et éditer les résultats (organisateur)</h4>
+<p>Lancer le calcul des classements par catégorie (départages automatiques : nombre de 10, puis de 9, puis ex æquo), vérifier, éditer les résultats conformes à l'art. B.1.3 (date, lieu, club, arbitres, participants par catégorie, scores) pour affichage et podiums.</p>
+<h4>P-07 — Transmettre les résultats à la FFTA (organisateur)</h4>
+<p>Dès la fin de la compétition, produire le fichier de résultats au format attendu par la fédération (ou, à défaut, un export exploitable) et le transmettre via l'extranet fédéral, dans le délai réglementaire.</p>
+<h4>P-08 — Consulter (archer, dirigeant)</h4>
+<p>Consulter le mandat, sa propre inscription, ses scores et les classements publiés du concours.</p>
+<h4>P-09 — Administrer l'application (administrateur)</h4>
+<p>Créer et gérer les comptes utilisateurs (identifiants, rôles), configurer les paramètres techniques de l'application (ex. réglages d'impression, emplacement des sauvegardes), exporter/importer cette configuration de façon chiffrée pour équiper un nouveau poste du club sans reconfiguration complète — cet export ne contient ni donnée personnelle d'archer, ni donnée de concours (voir EF-70, EF-71, ENF-14).</p>
+
+</section>
+<section id="ch-04-regles-metier" class="chapitre">
+<h2>4. Règles métier FFTA</h2>
+<p>Synthèse des règles fédérales que l'application doit faire respecter. Chaque règle renvoie à l'article du Livre des Règlements Sportifs et Arbitrage FFTA (édition juillet 2025) ; les extraits détaillés et tracés sont conservés dans le dépôt du projet (specs/organisation-concours-ffta.spec.md, specs/decompte-points-ffta.spec.md, specs/categories-ffta.spec.md).</p>
+<p><strong>Relecteurs arbitres</strong> : merci de vérifier chaque règle (formulation, article, exceptions oubliées) et de signaler les règles manquantes pour le périmètre de la Phase 1 (Tir à 18m, qualification).</p>
+<h3>4.1 Organisation et greffe</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-01</td><td>Un concours sélectif compte au minimum 6 cibles par départ (sauf DOM-TOM)</td><td>I.B (préambule)</td></tr>
+<tr><td>RM-02</td><td>Pas plus de 2 archers d'un même club sur une même cible, quel que soit le rythme de tir ; la participation d'archers licenciés dans un autre club est obligatoire à chaque départ</td><td>I.B / B.1.2</td></tr>
+<tr><td>RM-03</td><td>Avant le début du concours, le greffe contrôle les licences et vérifie qu'aucune défection ne laisse un archer isolé ou 2 archers du même club sur une cible</td><td>B.1.2</td></tr>
+<tr><td>RM-04</td><td>Éviter de placer 4 tireurs sur une cible s'il y a un archer en fauteuil roulant</td><td>B.1.2</td></tr>
+<tr><td>RM-05</td><td>Le mandat comporte : heure d'ouverture du greffe, inspection du matériel, entraînement, début des tirs, forme du concours, blasons utilisés (Tir à 18m)</td><td>B.1.1</td></tr>
+<tr><td>RM-06</td><td>Si un archer participe à plusieurs départs du même concours, seul le premier score compte pour le classement officiel ; tous les scores sont transmis pour le classement national</td><td>B.7</td></tr>
+</tbody></table>
+<h3>4.2 Résultats et transmission</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-07</td><td>Les résultats comportent : date, lieu, club organisateur, nom des arbitres, nombre de participants par catégorie, et pour chaque archer : nom, prénom, n° de licence, club, catégorie, score par distance</td><td>B.1.3</td></tr>
+<tr><td>RM-08</td><td>Les résultats sont envoyés via l'application préconisée par la FFTA dès la fin de la compétition ; retard &gt; 3 jours : 1 an de suppression d'organisation ; non-envoi : 2 ans</td><td>B.1.4</td></tr>
+<tr><td>RM-09</td><td>Lors des championnats, le classement se fait par catégories d'âge et d'armes (sauf classement scratch annoncé)</td><td>B.1.3</td></tr>
+<tr><td>RM-10</td><td>En cas d'interruption de la compétition (force majeure), le classement est validé sur les scores acquis si tous les concurrents ont tiré le même nombre de volées ; la compétition n'est jamais annulée</td><td>B.7</td></tr>
+</tbody></table>
+<h3>4.3 Marque et scores (Tir à 18m et TAE)</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-11</td><td>Un marqueur est désigné par cible ; s'il n'y a pas de marqueur fourni, la double marque est obligatoire</td><td>B.3 / II.B.6</td></tr>
+<tr><td>RM-12</td><td>En cas d'enregistrement électronique des points, les feuilles de marque papier restent les seules valeurs officielles et doivent être conservées</td><td>B.3</td></tr>
+<tr><td>RM-13</td><td>Les valeurs des flèches sont inscrites en ordre décroissant, annoncées par l'archer et vérifiées par les autres archers de la cible ; désaccord → décision d'arbitre, définitive</td><td>II.B.6.1</td></tr>
+<tr><td>RM-14</td><td>Une flèche touchant deux zones ou une ligne de séparation prend la valeur la plus haute</td><td>II.B.6.2</td></tr>
+<tr><td>RM-15</td><td>Flèche sur le mauvais blason ou hors zones marquantes : comptée manquée (M)</td><td>II.B.6.2</td></tr>
+<tr><td>RM-16</td><td>Blasons multi-spots (18m) : si plusieurs flèches d'un même archer tombent dans la même zone, seule la plus basse compte, les autres sont M</td><td>II.2.B.6</td></tr>
+<tr><td>RM-17</td><td>La feuille de marque doit comporter la valeur de chaque flèche, les totaux et le nombre de 10 et de 9 (18m), et être signée par l'archer et le marqueur ; feuille non conforme non corrigée → disqualification possible</td><td>II.B.6.4</td></tr>
+<tr><td>RM-18</td><td>Divergence entre les deux feuilles papier : le total le plus bas fait foi ; divergence papier/électronique : le total électronique fait foi pour le score, le nombre de 10/9 vient du papier</td><td>II.B.6.4</td></tr>
+<tr><td>RM-19</td><td>Une information manquante sur la feuille est considérée comme inexistante (0) pour le classement</td><td>B.7 / II.B.6.4</td></tr>
+<tr><td>RM-20</td><td>Une erreur d'enregistrement peut être corrigée par un arbitre tant que les flèches sont en cible et non touchées (correction tracée)</td><td>B.7</td></tr>
+<tr><td>RM-21</td><td>Flèche tirée hors séquence : la flèche la plus haute de la volée est marquée M ; flèches en surnombre : les flèches en trop sont M</td><td>II.B.8</td></tr>
+</tbody></table>
+<h3>4.4 Classements et départages</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-22</td><td>Départage des égalités hors phases finales : 1) plus grand nombre de 10 ; 2) plus grand nombre de 9 (18m) ou de X (TAE) ; 3) ex æquo (tirage au sort pour le seul ordre du tableau)</td><td>II.B.6.5</td></tr>
+<tr><td>RM-23</td><td>Pour l'accession aux phases finales ou l'attribution de médailles : tir de barrage obligatoire, sans prise en compte du nombre de 10/9</td><td>II.B.6.5</td></tr>
+<tr><td>RM-24</td><td>Les classements distinguent les hommes et les femmes, et respectent toutes les catégories d'âge reconnues (championnats départementaux et régionaux)</td><td>C.3.1</td></tr>
+</tbody></table>
+<h3>4.5 Catégories et licences</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-25</td><td>Catégories d'âge (âge dans l'année civile de la licence) : U11 ≤ 10 ans ; U13 : 11-12 ; U15 : 13-14 ; U18 : 15-17 ; U21 : 18-20 ; S1 : 21-39 ; S2 : 40-59 ; S3 : 60 et +</td><td>C.3.1</td></tr>
+<tr><td>RM-26</td><td>Catégories de classement Tir à 18m : Arc Classique (U13 à S3), Arc à Poulies (U15 regroupant U13-U15, puis U18 à S3), Arc Nu (U18 regroupant U15-U18, puis Toutes Catégories regroupant U21 à S3)</td><td>C.5.1.3 §3.2</td></tr>
+<tr><td>RM-27</td><td>Surclassement : catégorie immédiatement supérieure uniquement ; double surclassement interdit sauf S3 → S1 ; certificat médical selon les cas (voir specs/categories-ffta.spec.md)</td><td>C.3.2</td></tr>
+<tr><td>RM-28</td><td>U11 en compétition officielle (dès 8 ans) : Tir à 18m sur blason de 80 cm, arc classique uniquement, puissance ≤ 18 livres (sinon certificat médical spécifique) ; aucun titre national</td><td>C.3.1.1</td></tr>
+<tr><td>RM-29</td><td>Un archer sans nouvelle licence au 15 octobre perd le bénéfice des scores réalisés depuis le début de saison</td><td>C.3.1</td></tr>
+<tr><td>RM-30</td><td>Licences Découverte et Sans Pratique : compétitions officielles non autorisées</td><td>C.3.1</td></tr>
+</tbody></table>
+<h3>4.6 Formats d'épreuve (Phase 1 — Tir à 18m)</h3>
+<table><thead><tr><th>Id</th><th>Règle</th><th>Article</th></tr></thead><tbody>
+<tr><td>RM-31</td><td>Épreuve de qualification 2×18 m : 2 séries de 10 volées de 3 flèches ; blason de 40 cm (ou trispot) selon les catégories ; temps de tir : 2 minutes par volée de 3 flèches</td><td>II.2.A / B.5</td></tr>
+<tr><td>RM-32</td><td>Une session d'entraînement (3 volées) est due avant chaque départ</td><td>B.1.1 / B.7</td></tr>
+</tbody></table>
+
+</section>
+<section id="ch-05-exigences-fonctionnelles" class="chapitre">
+<h2>5. Exigences fonctionnelles</h2>
+<p>Priorisation MoSCoW : <strong>M</strong> (Must — indispensable Phase 1), <strong>S</strong> (Should — important, Phase 1 si possible), <strong>C</strong> (Could — souhaitable, phases suivantes), <strong>W</strong> (Won't — écarté pour l'instant). Chaque exigence renvoie aux parcours (P-xx) et règles métier (RM-xx) concernés.</p>
+<h3>5.1 Référentiel archers et clubs</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-01</td><td>Gérer les archers : identité, n° de licence, club, date de naissance, sexe, arme pratiquée</td><td>M</td><td>P-02, RM-07</td></tr>
+<tr><td>EF-02</td><td>Gérer les clubs (nom, n° d'affiliation, comité)</td><td>M</td><td>P-02</td></tr>
+<tr><td>EF-03</td><td>Calculer automatiquement la catégorie d'âge à partir de la date de naissance et de la saison</td><td>M</td><td>RM-25</td></tr>
+<tr><td>EF-04</td><td>Déterminer la catégorie de classement (sexe × âge × arme × discipline) avec les regroupements réglementaires</td><td>M</td><td>RM-24, RM-26</td></tr>
+<tr><td>EF-05</td><td>Prendre en compte un surclassement (annuel ou ponctuel) avec contrôle de validité</td><td>S</td><td>RM-27</td></tr>
+<tr><td>EF-06</td><td>Importer une liste d'archers (fichier CSV/tableur) pour éviter la ressaisie</td><td>S</td><td>P-02</td></tr>
+</tbody></table>
+<h3>5.2 Préparation du concours</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-10</td><td>Créer un concours : discipline, dates, lieu, club organisateur, arbitres, nombre de cibles</td><td>M</td><td>P-01, RM-01, RM-07</td></tr>
+<tr><td>EF-11</td><td>Définir les départs (horaires, greffe, inspection, entraînement, début des tirs) et les blasons</td><td>M</td><td>P-01, RM-05</td></tr>
+<tr><td>EF-12</td><td>Générer le mandat (document diffusable) à partir des informations du concours</td><td>S</td><td>P-01, RM-05</td></tr>
+<tr><td>EF-13</td><td>Enregistrer les inscriptions par départ, avec contrôle de la licence et de la catégorie</td><td>M</td><td>P-02, RM-29, RM-30</td></tr>
+<tr><td>EF-14</td><td>Gérer une liste d'attente et les désistements</td><td>C</td><td>P-02</td></tr>
+<tr><td>EF-15</td><td>Contrôler les inscriptions U11 (discipline, arme, alerte puissance)</td><td>S</td><td>RM-28</td></tr>
+</tbody></table>
+<h3>5.3 Greffe du jour J</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-20</td><td>Pointer les présents et le contrôle des licences au greffe</td><td>M</td><td>P-03, RM-03</td></tr>
+<tr><td>EF-21</td><td>Attribuer les cibles avec contrôle bloquant des règles fédérales (max 2 archers/club/cible) et alerte si un départ n'accueille aucun archer extérieur</td><td>M</td><td>P-03, RM-02, RM-04</td></tr>
+<tr><td>EF-22</td><td>Réattribuer les cibles en cas de défection, en préservant les règles</td><td>M</td><td>P-03, RM-03</td></tr>
+<tr><td>EF-23</td><td>Éditer le plan de cibles et les feuilles de marque pré-remplies (impression)</td><td>M</td><td>P-03, RM-12</td></tr>
+<tr><td>EF-24</td><td>Enregistrer les mises (paiement sur place) et l'état de la caisse du greffe</td><td>C</td><td>P-03</td></tr>
+</tbody></table>
+<h3>5.4 Saisie des scores</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-30</td><td>Saisir les scores par volée et par archer (valeurs 1-10, M) avec tri décroissant automatique</td><td>M</td><td>P-04, RM-13</td></tr>
+<tr><td>EF-31</td><td>Calculer automatiquement les totaux par série et le nombre de 10 et de 9</td><td>M</td><td>P-04, RM-17</td></tr>
+<tr><td>EF-32</td><td>Enregistrer la validation de fin de tir (archer + marqueur) et verrouiller la feuille</td><td>M</td><td>P-04, RM-17</td></tr>
+<tr><td>EF-33</td><td>Tracer toute correction après verrouillage, avec identification de l'arbitre</td><td>M</td><td>P-05, RM-20</td></tr>
+<tr><td>EF-34</td><td>Signaler une divergence entre feuille papier et saisie électronique et appliquer la règle de primauté</td><td>S</td><td>P-05, RM-12, RM-18</td></tr>
+<tr><td>EF-35</td><td>Gérer les flèches en surnombre et hors séquence (marquage M assisté)</td><td>C</td><td>RM-16, RM-21</td></tr>
+</tbody></table>
+<h3>5.5 Classements et résultats</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-40</td><td>Calculer les classements par catégorie de classement, hommes et femmes séparés</td><td>M</td><td>P-06, RM-09, RM-24</td></tr>
+<tr><td>EF-41</td><td>Appliquer le départage réglementaire (nb de 10, puis nb de 9, puis ex æquo)</td><td>M</td><td>P-06, RM-22</td></tr>
+<tr><td>EF-42</td><td>Ne retenir que le premier score d'un archer inscrit à plusieurs départs (les autres restant transmis)</td><td>M</td><td>RM-06</td></tr>
+<tr><td>EF-43</td><td>Éditer les résultats conformes (contenu de l'art. B.1.3) en impression/PDF</td><td>M</td><td>P-06, RM-07</td></tr>
+<tr><td>EF-44</td><td>Produire un export générique des résultats (CSV)</td><td>M</td><td>P-07</td></tr>
+<tr><td>EF-45</td><td>Produire le fichier au format attendu par la FFTA (Résult'Arc/IANSEO)</td><td>C*</td><td>P-07, RM-08, QO-01</td></tr>
+<tr><td>EF-46</td><td>Gérer le cas d'une compétition interrompue (classement figé sur les volées complètes)</td><td>C</td><td>RM-10</td></tr>
+</tbody></table>
+<p>\* passe en Must dès que le format fédéral est obtenu (voir <a href="#ch-08-questions-ouvertes">QO-01</a>).</p>
+<h3>5.6 Transverse</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-60</td><td>Gérer des comptes utilisateurs avec rôles (administrateur, organisateur, greffe, marqueur, arbitre, consultation)</td><td>M</td><td>P-09, tous</td></tr>
+<tr><td>EF-61</td><td>Journaliser les actions sensibles (corrections de scores, modifications d'attribution)</td><td>S</td><td>RM-20, ENF-03</td></tr>
+<tr><td>EF-62</td><td>Publier une vue de consultation des classements (affichage salle / lien public)</td><td>S</td><td>P-08</td></tr>
+</tbody></table>
+<h3>5.7 Administration technique</h3>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Liens</th></tr></thead><tbody>
+<tr><td>EF-70</td><td>Exporter la configuration technique de l'application (comptes utilisateurs, paramètres) sous forme chiffrée</td><td>S</td><td>P-09, ENF-14</td></tr>
+<tr><td>EF-71</td><td>Importer une configuration technique exportée pour équiper un nouveau poste du club, sans écraser ni requérir de données de concours existantes</td><td>S</td><td>P-09, ENF-14</td></tr>
+</tbody></table>
+
+</section>
+<section id="ch-06-exigences-non-fonctionnelles" class="chapitre">
+<h2>6. Exigences non fonctionnelles</h2>
+<table><thead><tr><th>Id</th><th>Exigence</th><th>Priorité</th><th>Commentaire</th></tr></thead><tbody>
+<tr><td>ENF-01</td><td><strong>Fonctionnement sans Internet fiable</strong> : le jour J, l'application doit fonctionner dans un gymnase ou sur un terrain sans connexion garantie (réseau local ou mode hors-ligne avec synchronisation)</td><td>M</td><td>Point structurant pour l'architecture — voir <a href="#ch-08-questions-ouvertes">QO-02</a></td></tr>
+<tr><td>ENF-02</td><td><strong>Sécurité des accès</strong> : authentification obligatoire pour toute action de gestion ; mots de passe hachés avec un algorithme robuste (recommandation CNIL) ; droits selon le rôle</td><td>M</td><td>Voir chapitre 7 et ENF-12 (poste partagé)</td></tr>
+<tr><td>ENF-03</td><td><strong>Traçabilité</strong> : journalisation des accès et des actions sensibles (corrections de scores, exports de données personnelles), horodatée et attribuée</td><td>M</td><td>Guide CNIL sécurité 2024</td></tr>
+<tr><td>ENF-04</td><td><strong>Sauvegarde et reprise</strong> : sauvegarde automatique pendant la compétition ; une panne de la machine du greffe ne doit pas faire perdre plus d'une volée de saisie</td><td>M</td><td></td></tr>
+<tr><td>ENF-05</td><td><strong>Performance jour J</strong> : saisie d'une volée et recalcul des totaux perçus comme instantanés (&lt; 1 s) ; classement complet d'un départ (~100 archers) en moins de 10 s</td><td>S</td><td></td></tr>
+<tr><td>ENF-06</td><td><strong>Impression</strong> : plans de cibles, feuilles de marque et résultats imprimables proprement en A4 depuis l'application</td><td>M</td><td>Le papier reste la référence officielle (RM-12)</td></tr>
+<tr><td>ENF-07</td><td><strong>Simplicité d'utilisation</strong> : le greffe et la saisie doivent être utilisables par des bénévoles non informaticiens après une prise en main de moins de 30 minutes</td><td>M</td><td>À valider par les utilisateurs de terrain</td></tr>
+<tr><td>ENF-08</td><td><strong>Accessibilité</strong> : interface lisible en conditions de gymnase (contraste, taille des caractères), utilisable au clavier</td><td>S</td><td></td></tr>
+<tr><td>ENF-09</td><td><strong>Multi-appareils</strong> : consultation des classements sur smartphone ; la saisie des scores sur tablette/smartphone est une option à trancher (<a href="#ch-08-questions-ouvertes">QO-03</a>)</td><td>S</td><td></td></tr>
+<tr><td>ENF-10</td><td><strong>Réversibilité</strong> : toutes les données d'un concours exportables dans un format ouvert (CSV/JSON)</td><td>S</td><td></td></tr>
+<tr><td>ENF-11</td><td><strong>Conformité RGPD</strong> : voir chapitre 7 (minimisation, durées de conservation, droits des personnes)</td><td>M</td><td></td></tr>
+<tr><td>ENF-12</td><td><strong>Poste partagé et supports amovibles</strong> : le même poste physique (greffe) est utilisé successivement par plusieurs rôles (organisateur, greffe, marqueur, arbitre) ; verrouillage/déconnexion obligatoire entre deux utilisateurs, pas de session laissée ouverte ; toute copie de données personnelles sur support amovible (clé USB, pour sauvegarde ou échange) doit être chiffrée et effacée de façon sécurisée après usage</td><td>M</td><td>Hypothèse retenue en Phase 1 — voir chapitre 3.2, <a href="#ch-08-questions-ouvertes">QO-02</a>/<a href="#ch-08-questions-ouvertes">QO-03</a>, chapitre 7</td></tr>
+<tr><td>ENF-13</td><td><strong>Distribution</strong> : un installeur/package d'installation (Windows, Linux) est publié sur le dépôt GitHub du projet (release) à chaque version, permettant l'installation par les utilisateurs finaux sans compilation ni compétence informatique</td><td>M</td><td>Voir docs/architecture/stack-technique.md</td></tr>
+<tr><td>ENF-14</td><td><strong>Transfert de configuration entre postes</strong> : la configuration technique de l'application (comptes utilisateurs, paramètres techniques) est exportable/importable de façon chiffrée entre postes d'un même club, pour équiper un nouveau poste sans reconfiguration complète ; cet export ne contient aucune donnée personnelle d'archer ni donnée de concours</td><td>S</td><td>EF-70, EF-71, chapitre 7</td></tr>
+</tbody></table>
+
+</section>
+<section id="ch-07-donnees-rgpd" class="chapitre">
+<h2>7. Données personnelles et RGPD</h2>
+<p>Le club organisateur est <strong>responsable de traitement</strong> au sens du RGPD. Ce chapitre décrit les données envisagées et les principes retenus ; il alimentera le registre des traitements (art. 30 RGPD) tenu dans le dépôt du projet (docs/rgpd/registre-traitements.md).</p>
+<h3>7.1 Données traitées</h3>
+<table><thead><tr><th>Catégorie</th><th>Données</th><th>Nécessité</th></tr></thead><tbody>
+<tr><td>Identité</td><td>Nom, prénom, sexe, date de naissance</td><td>Obligatoire : résultats officiels (RM-07) et calcul de catégorie (RM-25)</td></tr>
+<tr><td>Licence</td><td>N° de licence, club, type de licence, surclassement</td><td>Obligatoire : contrôle au greffe (RM-03), résultats</td></tr>
+<tr><td>Contact</td><td>Adresse électronique (organisateur/inscription)</td><td>À minimiser — voir <a href="#ch-08-questions-ouvertes">QO-04</a></td></tr>
+<tr><td>Sportif</td><td>Scores, classements, catégorie</td><td>Obligatoire : objet même de l'application ; données publiées</td></tr>
+<tr><td>Comptes</td><td>Identifiant, mot de passe haché, rôle</td><td>Utilisateurs de l'application uniquement</td></tr>
+</tbody></table>
+<h3>7.2 Point d'attention : certificat médical</h3>
+<p>Certaines situations font intervenir des <strong>données de santé</strong> (catégorie sensible, art. 9 RGPD) : certificat médical de surclassement, certificat de puissance pour les U11 (RM-27, RM-28).</p>
+<p>Principe proposé : l'application <strong>ne stocke aucun certificat médical</strong>. Elle enregistre uniquement le fait attesté (« surclassement U15 accordé », « certificat présenté au greffe »), la vérification du document restant humaine. Ce choix évite un traitement de données de santé et l'analyse d'impact (AIPD) qui pourrait en découler. <strong>Soumis à validation</strong> — voir <a href="#ch-08-questions-ouvertes">QO-04</a>.</p>
+<h3>7.3 Bases légales envisagées</h3>
+<table><thead><tr><th>Traitement</th><th>Base légale proposée</th></tr></thead><tbody>
+<tr><td>Gestion des inscriptions et du greffe</td><td>Exécution d'un contrat (participation au concours)</td></tr>
+<tr><td>Établissement et publication des résultats</td><td>Obligation réglementaire fédérale pour l'organisateur ; intérêt légitime pour la publication sportive</td></tr>
+<tr><td>Comptes utilisateurs</td><td>Intérêt légitime (fonctionnement de l'outil)</td></tr>
+</tbody></table>
+<p>Ces qualifications seront précisées avec la revue de conformité (/rgpd-check) avant développement.</p>
+<h3>7.4 Durées de conservation (proposition)</h3>
+<table><thead><tr><th>Données</th><th>Durée proposée</th></tr></thead><tbody>
+<tr><td>Inscriptions et données de greffe</td><td>Saison en cours + 1 an</td></tr>
+<tr><td>Résultats officiels (publiés)</td><td>Conservation longue (archive sportive du club) — anonymisation non pertinente pour des résultats nominatifs officiels</td></tr>
+<tr><td>Comptes utilisateurs</td><td>Suppression à la fin de l'activité de l'utilisateur</td></tr>
+<tr><td>Journaux (ENF-03)</td><td>6 mois à 1 an (recommandation CNIL)</td></tr>
+</tbody></table>
+<h3>7.5 Droits des personnes et sécurité</h3>
+<ul>
+<li>Information des archers lors de l'inscription (mention d'information : finalités, destinataires, durées, droits) ;</li>
+<li>Exercice des droits (accès, rectification, effacement dans les limites des obligations fédérales) via le club organisateur ;</li>
+<li>Mesures de sécurité : authentification, hachage robuste des mots de passe, chiffrement des sauvegardes, journalisation (ENF-02 à ENF-04), notification CNIL sous 72 h en cas de violation ;</li>
+<li>Poste partagé (ENF-12, chapitre 3.2) : verrouillage/déconnexion obligatoire entre deux utilisateurs successifs du même poste physique ; toute copie de données personnelles sur support amovible (clé USB, sauvegarde ou échange) chiffrée et effacée de façon sécurisée après usage — un support perdu ou volé ne doit exposer aucune donnée en clair ;</li>
+<li>Transfert de configuration entre postes du club (ENF-14) : seuls les comptes utilisateurs (identifiants, rôles) et les paramètres techniques de l'application sont transférés, de façon chiffrée — <strong>aucune donnée personnelle d'archer ni donnée de concours n'est incluse dans cet export</strong> ; principe de minimisation appliqué au transfert lui-même, pas seulement au stockage ;</li>
+<li>Destinataires : club organisateur, FFTA (transmission réglementaire des résultats), public (résultats sportifs uniquement).</li>
+</ul>
+
+</section>
+<section id="ch-08-questions-ouvertes" class="chapitre">
+<h2>8. Questions ouvertes soumises aux relecteurs</h2>
+<p>Ces points ne sont pas tranchés dans cette version du dossier. Chaque relecteur est invité à donner son avis, même partiel, en citant l'identifiant QO-xx.</p>
+<h3>QO-01 — Format d'export vers la FFTA</h3>
+<p>Le format technique du fichier de résultats attendu par la fédération (Résult'Arc, puis IANSEO) n'est pas public. Le cahier des charges informatique serait disponible sur demande auprès de la Direction Sportive de la FFTA.</p>
+<p><strong>Questions</strong> : qui, au club ou au comité, peut porter cette demande auprès de la FFTA ? Un contact existe-t-il ? En attendant, un export CSV + saisie manuelle dans l'outil fédéral est-il acceptable ?</p>
+<h3>QO-02 — Conditions matérielles et réseau le jour J</h3>
+<p>L'architecture dépend directement des conditions réelles en gymnase : y a-t-il une connexion Internet fiable ? L'application doit-elle fonctionner sur une seule machine au greffe, ou sur plusieurs postes en réseau local ?</p>
+<p><strong>Questions</strong> : décrivez l'installation type de vos concours (nombre de postes, qui saisit, connexion disponible). Un fonctionnement 100 % local sur le poste du greffe est-il suffisant en Phase 1 ?</p>
+<p><strong>Proposition technique</strong> : voir [docs/architecture/stack-technique.md](../architecture/stack-technique.md).</p>
+<p><strong>Hypothèse retenue</strong> : un poste unique, partagé entre tous les rôles applicatifs (voir chapitre 3.2, ENF-12) — à confirmer par les relecteurs.</p>
+<h3>QO-03 — Qui saisit les scores, sur quel support ?</h3>
+<p>Deux modèles possibles (cumulables) : saisie centralisée au greffe à partir des feuilles papier (après chaque série ou en fin de tir), ou saisie décentralisée par les marqueurs sur tablette/smartphone au pas de tir (le papier restant la référence officielle, RM-12).</p>
+<p><strong>Questions</strong> : la saisie par les marqueurs sur leur propre téléphone est-elle réaliste dans vos clubs (équipement, réticences, batterie, réseau) ? Pour la Phase 1, la saisie centralisée suffit-elle ?</p>
+<p><strong>Hypothèse retenue</strong> : saisie centralisée sur le poste unique partagé (chapitre 3.2), à partir des feuilles de marque papier — cohérente avec la décision « mobile = consultation seule » (voir [docs/architecture/stack-technique.md](../architecture/stack-technique.md)) ; pas de saisie décentralisée sur tablette/smartphone en Phase 1.</p>
+<h3>QO-04 — Données personnelles : périmètre exact</h3>
+<p>Le dossier propose de ne stocker ni certificat médical ni donnée de santé (§ 7.2), et de minimiser les données de contact.</p>
+<p><strong>Questions</strong> : la proposition « on enregistre le fait, pas le document » convient-elle aux pratiques réelles du greffe ? L'adresse électronique des archers est-elle nécessaire (convocations, envoi des résultats) ou peut-on s'en passer ?</p>
+<h3>QO-05 — Priorités du phasage</h3>
+<p>La Phase 1 proposée couvre le Tir à 18m en épreuve de qualification, sans phases finales (chapitre 2).</p>
+<p><strong>Questions</strong> : est-ce le bon premier périmètre pour vos concours ? Les phases finales (duels) en salle sont-elles fréquentes dans vos organisations ? Quelle discipline devrait suivre : TAE, Campagne/Nature/3D, Beursault ?</p>
+<h3>QO-06 — Inscriptions en ligne et paiement</h3>
+<p>Le dossier prévoit l'enregistrement des inscriptions par l'organisateur (EF-13). L'auto-inscription en ligne par les archers (voire le paiement des mises en ligne) est une extension possible mais structurante (comptes publics, sécurité, coûts).</p>
+<p><strong>Questions</strong> : comment recevez-vous les inscriptions aujourd'hui (courriel, formulaire, téléphone) ? L'auto-inscription en ligne est-elle un besoin réel, et à quel horizon ?</p>
+<h3>QO-07 — Volumes et échelle</h3>
+<p><strong>Questions</strong> : ordres de grandeur de vos concours (archers par départ, départs par concours, concours par saison) ? L'application doit-elle servir un seul club ou être mutualisable (département, plusieurs clubs) ?</p>
+<h3>QO-08 — Hébergement et responsabilité</h3>
+<p>Selon les réponses à QO-02 et QO-06 : application locale (poste du club), auto-hébergée, ou hébergée en ligne. Le choix emporte des conséquences RGPD (responsable de traitement, sous-traitant, localisation des données).</p>
+<p><strong>Questions</strong> : le club dispose-t-il déjà d'un hébergement ou d'un prestataire ? Une solution purement locale (aucune donnée en ligne) serait-elle préférée ?</p>
+<p><strong>Proposition technique</strong> : voir [docs/architecture/stack-technique.md](../architecture/stack-technique.md).</p>
+
+</section>
+<section id="ch-glossaire" class="chapitre">
+<h2>9. Glossaire</h2>
+<table><thead><tr><th>Terme</th><th>Définition</th></tr></thead><tbody>
+<tr><td>Arbitre</td><td>Officiel fédéral garant de l'application des règlements pendant la compétition ; seul habilité à trancher la valeur d'une flèche litigieuse</td></tr>
+<tr><td>Arc classique</td><td>Arc olympique (recurve) avec viseur et stabilisation</td></tr>
+<tr><td>Arc à poulies</td><td>Arc mécaniquement démultiplié (compound) ; catégories et décomptes spécifiques</td></tr>
+<tr><td>Arc nu (bare bow)</td><td>Arc classique sans viseur ni stabilisation</td></tr>
+<tr><td>Barrage</td><td>Tir supplémentaire départageant des ex æquo pour une place qualificative ou une médaille</td></tr>
+<tr><td>Blason</td><td>Cible en papier fixée sur la butte ; au Tir à 18m : blason de 40 cm ou blason « trispot » (3 zones verticales)</td></tr>
+<tr><td>Catégorie de classement</td><td>Combinaison sexe × catégorie d'âge × catégorie d'arme dans laquelle un archer est classé (ex. « Femme U18 Arc Classique »)</td></tr>
+<tr><td>Concours sélectif</td><td>Compétition officielle dont les scores comptent pour le classement national et la sélection aux championnats</td></tr>
+<tr><td>Départ</td><td>Session de tir d'un concours (ex. « samedi 14h ») ; un concours comporte un ou plusieurs départs</td></tr>
+<tr><td>Double marque</td><td>Enregistrement des scores sur deux feuilles distinctes tenues par deux personnes, obligatoire en l'absence de marqueur dédié</td></tr>
+<tr><td>Duel (match)</td><td>Confrontation directe à élimination en phases finales</td></tr>
+<tr><td>Feuille de marque</td><td>Document officiel d'enregistrement des scores d'une cible ; la version papier fait foi</td></tr>
+<tr><td>Greffe</td><td>Bureau d'accueil de la compétition : contrôle des licences, pointage, attribution des cibles, encaissement des mises</td></tr>
+<tr><td>M (manqué)</td><td>Flèche ne marquant aucun point</td></tr>
+<tr><td>Mandat</td><td>Invitation officielle publiée par l'organisateur (horaires, forme du concours, blasons)</td></tr>
+<tr><td>Marqueur</td><td>Personne désignée par cible pour inscrire les valeurs des flèches</td></tr>
+<tr><td>Mise</td><td>Droit d'inscription payé par l'archer pour un départ</td></tr>
+<tr><td>Rythme AB/CD</td><td>Ordre de passage des archers d'une même cible sur la ligne de tir</td></tr>
+<tr><td>Surclassement</td><td>Autorisation de concourir dans la catégorie d'âge immédiatement supérieure</td></tr>
+<tr><td>TAE</td><td>Tir à l'Arc Extérieur (discipline internationale en plein air)</td></tr>
+<tr><td>Tir à 18m</td><td>Discipline en salle, tir à 18 mètres</td></tr>
+<tr><td>Trispot</td><td>Blason à 3 zones (zones 6 à 10 uniquement) utilisé au Tir à 18m</td></tr>
+<tr><td>Volée</td><td>Série de flèches tirées consécutivement avant le décompte (3 flèches au Tir à 18m)</td></tr>
+<tr><td>X</td><td>Zone centrale du 10 (TAE), comptée pour le départage</td></tr>
+</tbody></table>
+
+</section>
+
+</body>
+</html>

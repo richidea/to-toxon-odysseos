@@ -11,6 +11,8 @@ Ce bundle OKF documente les actifs de données et services du projet.
 | Endpoints | API REST exposée                  | [endpoints/](endpoints/) |
 | Références| Liens externes                    | [references.md](references.md) |
 | Conformité| Registre des traitements RGPD (Art. 30) | [docs/rgpd/](../rgpd/) |
+| Spécifications | Dossier de spécifications soumis aux tiers (v0.1) | [docs/specifications/](../specifications/) |
+| Architecture | Décisions d'architecture technique | [docs/architecture/](../architecture/) |
 
 ## Architecture en un coup d'œil
 

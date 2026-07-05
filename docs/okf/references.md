@@ -35,6 +35,7 @@ timestamp: 2026-07-04
 - [Règlements Sportifs et Arbitrage — Saison Sportive 2025, Édition Juillet 2025 (PDF officiel)](https://www.ffta.fr/sites/default/files/2025-07/R%C3%A9glements%20Sportifs%20et%20Arbitrage_Saison%20Sportive%202025_Juillet%202025.pdf)
   Chapitre I.B "Les Organisations" (organisation des concours) converti en markdown : [specs/organisation-concours-ffta.spec.md](../../specs/organisation-concours-ffta.spec.md)
   Chapitres II.1/II.2 B.5-B.6 "Établissement des scores" (décompte des points, TAE et Tir à 18m) converti en markdown : [specs/decompte-points-ffta.spec.md](../../specs/decompte-points-ffta.spec.md)
+  Chapitre I.C.3 "Catégories, surclassements" + tableau des catégories du classement national converti en markdown : [specs/categories-ffta.spec.md](../../specs/categories-ffta.spec.md)
 - [Règlements Sportifs et Arbitrage — Version Décembre 2023 Consolidée (PDF, version antérieure)](https://www.ffta.fr/sites/default/files/2023-12/R%C3%A9glements%20Sportifs%20et%20Arbitrage_Version%20D%C3%A9cembre%202023%20Consolid%C3%A9e.pdf)
 - [Règlement intérieur de la FFTA (adopté AG 2023, PDF)](https://www.ffta.fr/sites/ffta/files/ri_ffta_adopte_ag_2023.pdf)
 
